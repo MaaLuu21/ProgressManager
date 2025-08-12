@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace ProgressManager.Entities
+﻿namespace ProgressManager.Entities
 {
     internal class Progresso
     {

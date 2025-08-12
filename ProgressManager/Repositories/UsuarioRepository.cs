@@ -1,5 +1,4 @@
-﻿using System;
-using ProgressManager.Entities;
+﻿using ProgressManager.Entities;
 using System.Text.Json;
 using ProgressManager.Exceptions;
 
@@ -45,6 +44,39 @@ namespace ProgressManager.Repositories
             }
             return new List<Usuario>();
         }
-        //Adicionar os outros métodos
+        
+        public static void RemoveUsuario(int id)
+        {
+            var usuarios = Carregar();
+            var usuario = usuarios.Find(u => u.Id == id);
+
+            if (usuario != null)
+            {
+                usuarios.Remove(usuario);
+                Salvar(usuarios);
+                Console.WriteLine($"Usuario {usuario.Nome} removido com sucesso!");
+            }
+            else
+            {
+                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+            }
+        }
+        public static void AtualizarUsuario (int id, Usuario novosDados)
+        {
+            var usuarios = Carregar();
+            var usuario = usuarios.Find (u => u.Id == id);
+
+            if (usuario != null)
+            {
+                usuario = novosDados;// TESTAR
+                Salvar(usuarios);
+                Console.WriteLine($"Usuario {usuario.Nome} atualizado com sucesso!");
+            }
+            else
+            {
+                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+            }
+
+        }
     }
 }
