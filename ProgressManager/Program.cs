@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgressManager.View;
+using System;
 
 namespace ProgressManager
 {
@@ -7,6 +8,15 @@ namespace ProgressManager
         static void Main(string[] args)
         {
 
+            try
+            {
+                var menu = new MenuView();
+                menu.MenuConsole();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Erro inesperado: " + e.Message);
+            }
         }
     }
 }

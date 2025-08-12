@@ -1,22 +1,20 @@
 ﻿using ProgressManager.Entities;
 using ProgressManager.Entities.Enums;
+using ProgressManager.Exceptions;
 using ProgressManager.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ProgressManager.View
 {
     class MenuView // --- editar diagrama de classes
     {
-        public static void MenuConsole()
+        public  void MenuConsole()
         {
             List<Usuario> usuarios = UsuarioRepository.Carregar();
-
+            List<Medicao> medicoes = new List<Medicao>();
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine(" ______________________________________ ");
                 Console.WriteLine("|          SELECIONE UMA OPÇÃO         |");
                 Console.WriteLine(" -------------------------------------- ");
@@ -38,32 +36,59 @@ namespace ProgressManager.View
                 {
                     case Opcoes.InserirUsuario:
                         Console.Clear();
-                        Console.Write("Nome:");
-                        string nome = Console.ReadLine();
-                        Console.Write("Data de nascimento (DD/MM/YYYY): ");
-                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime date))
+                        try
                         {
-                            Console.WriteLine("Data inválida!");
+                            string nome = EntradaUtils.LerEntrada(
+                                "Nome: ", entrada => (!string.IsNullOrEmpty(entrada), entrada));
+                            DateTime dataDeNascimento = EntradaUtils.LerEntrada(
+                                "Data de nascimento (DD/MM/YYYY): ", entrada => (DateTime.TryParse(entrada, out var valor), valor));
+                            double altura = EntradaUtils.LerEntrada(
+                                "Altura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+
+                            Console.WriteLine("Insira o ID com no máximo 6 digitos ex: 154985");
+                            int id = EntradaUtils.LerEntrada(
+                                "ID: ", entrada => (int.TryParse(entrada, out var valor), valor));
+
+                            Console.WriteLine("Deseja inserir as medições já, ou apenas criar o usuario?");
+                            Console.WriteLine("Para inserir as medições digite [0]");
+                            Console.WriteLine("Para apenas criar o usuario e voltar ao menu digite [1]");
+                            int resp = EntradaUtils.LerEntrada(": ", entrada => (int.TryParse(entrada, out var valor) && valor <= 1, valor));
+
+                            if (resp == 0)
+                            {
+                                Console.Clear();
+                                DateTime dataDeRegistro = EntradaUtils.LerEntrada(
+                                    "Data de hoje: ", entrada => (DateTime.TryParse(entrada, out var valor), valor));
+                                double peso = EntradaUtils.LerEntrada(
+                                    "Peso: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                double cintura = EntradaUtils.LerEntrada(
+                                    "Cintura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                double quadril = EntradaUtils.LerEntrada(
+                                    "Quadril: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                double biceps = EntradaUtils.LerEntrada(
+                                    "Bíceps: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                double coxa = EntradaUtils.LerEntrada(
+                                    "Coxa: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                double panturrilha = EntradaUtils.LerEntrada(
+                                    "Panturrilha: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                                medicoes.Add(new Medicao(dataDeRegistro, peso, cintura, quadril, biceps, coxa, panturrilha));
+                                usuarios.Add(new Usuario(nome, dataDeNascimento, altura, id, medicoes));
+                            }
                         }
-                        Console.Write("Altura: ");
-                        if (!double.TryParse(Console.ReadLine(), out double altura))
+                        catch (DomainException e)
                         {
-                            Console.WriteLine("Altura inválida!");
+                            Console.WriteLine("ERROR: " + e.Message);
+                            break;
                         }
-                        Console.WriteLine("Insira o ID com no máximo 6 digitos ex: 154985");
-                        Console.Write("ID: ");
-                        if (!int.TryParse(Console.ReadLine(), out int id) && id <= 6)
-                        {
-                            Console.WriteLine("ID inválido!");
-                        }
-                        usuarios.Add(new Usuario());
+                        break;
+                    case Opcoes.InserirMedidas:
+
+                    default:
+                        Console.WriteLine("Opção inválida");
                         break;
                 }
-                
             }
-
-
         }
     }
 }
-}
+

@@ -10,5 +10,13 @@
 
         public Usuario() { }
 
+        public Usuario(string nome, DateTime dataDeNascimento, double altura, int id, List<Medicao> medicoes)
+        {
+            Nome = nome;
+            DataDeNascimento = dataDeNascimento;
+            Altura = altura;
+            Id = id;
+            Medicoes = medicoes;
+        }
     }
 }
