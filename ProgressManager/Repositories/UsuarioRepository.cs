@@ -37,8 +37,9 @@ namespace ProgressManager.Repositories
                 string json = File.ReadAllText(caminhoArquivo);
                 var usuarios = JsonSerializer.Deserialize<List<Usuario>>(json) ?? new List<Usuario>();
 
-                var usuariosOrdenados = usuarios.Where(u => u.Medicoes != null && u.Medicoes.Any()).
-                    OrderByDescending(u => u.Medicoes.Min(m => m.DataDeRegistro)).ToList();
+                var usuariosOrdenados = usuarios.OrderByDescending(u => u.Medicoes != null && u.Medicoes.Any()
+                             ? u.Medicoes.Min(m => m.DataDeRegistro)
+                             : DateTime.MinValue).ToList();
 
                 return usuariosOrdenados;
             }
@@ -68,13 +69,17 @@ namespace ProgressManager.Repositories
 
             if (usuario != null)
             {
-                usuario = novosDados;// TESTAR
+                usuario.Nome = novosDados.Nome;
+                usuario.DataDeNascimento = novosDados.DataDeNascimento;
+                usuario.Altura = novosDados.Altura;
+                usuario.Medicoes = novosDados.Medicoes;
+
                 Salvar(usuarios);
                 Console.WriteLine($"Usuario {usuario.Nome} atualizado com sucesso!");
             }
             else
             {
-                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+                throw new DomainException($"ID: {id} não encontrado!");
             }
 
         }

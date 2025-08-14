@@ -2,9 +2,9 @@
 {
     class ImcService
     {
-        public double Imc (double altura, double peso)
+        public static double Imc (double peso, double altura)
         {
-            return peso * (altura * altura);
+            return peso / (altura * altura);
         }
     }
 }

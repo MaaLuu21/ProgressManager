@@ -23,5 +23,17 @@
             Coxa = coxa;
             Panturrilha = panturrilha;
         }
+        public override string ToString()
+        {
+            return "\n"
+                + DataDeRegistro
+                + "\n"
+                + Peso
+                + Cintura
+                + Quadril
+                + Biceps
+                + Coxa
+                + Panturrilha;
+        }
     }
 }

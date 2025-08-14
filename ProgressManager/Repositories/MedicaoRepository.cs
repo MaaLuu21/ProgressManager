@@ -12,7 +12,7 @@ namespace ProgressManager.Repositories
 
             if(usuario == null)
             {
-                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+                throw new DomainException($"ID: {id} não encontrado!");
             }
 
             var medicao = usuario.Medicoes.Find(m => m.DataDeRegistro == data);
@@ -21,11 +21,11 @@ namespace ProgressManager.Repositories
             {
                 usuario.Medicoes.Remove(medicao);
                 UsuarioRepository.Salvar(usuarios);
-                Console.WriteLine($"Medição da data {medicao.DataDeRegistro} removida com sucesso!");
+                Console.WriteLine($"Medição da data {data.ToShortDateString()} removida com sucesso!");
             }
             else
             {
-                throw new DomainException($"Medição {medicao.DataDeRegistro} não encontrada!");
+                throw new DomainException($"Medição {data.ToShortDateString()} não encontrada!");
             }
         }
         public static void AtualizarMedicao(DateTime data, Medicao novosDados, int id)// --- editar no diagrama de classe Medicao novos dados e ID
@@ -35,7 +35,7 @@ namespace ProgressManager.Repositories
 
             if (usuario == null)
             {
-                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+                throw new DomainException($"ID: {id} não encontrado!");
             }
 
             var medicao = usuario.Medicoes.Find(m => m.DataDeRegistro == data);
@@ -48,10 +48,11 @@ namespace ProgressManager.Repositories
                 medicao.Biceps = novosDados.Biceps;
                 medicao.Coxa = novosDados.Coxa;
                 medicao.Panturrilha = novosDados.Panturrilha;
+                UsuarioRepository.Salvar(usuarios);
             }
             else
             {
-                throw new DomainException($"Medição {medicao.DataDeRegistro} não encontrada!");
+                throw new DomainException($"Medição {data.ToShortDateString()} não encontrada!");
             }
         }
     }
