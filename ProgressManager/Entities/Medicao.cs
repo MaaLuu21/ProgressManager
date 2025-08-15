@@ -25,14 +25,20 @@
         }
         public override string ToString()
         {
-            return "\n"
-                + DataDeRegistro
-                + "\n"
+            return "___________________________________________"
+                + "Data de Resgitro: "
+                + DataDeRegistro.ToString("dd/MM/yyyy")
+                + "\nPeso: "
                 + Peso
+                + "\nCintura: "
                 + Cintura
+                + "\nQuadril: "
                 + Quadril
+                + "\nBicpes: "
                 + Biceps
+                + "\nCoxa: "
                 + Coxa
+                + "\nPanturrilha: "
                 + Panturrilha;
         }
     }

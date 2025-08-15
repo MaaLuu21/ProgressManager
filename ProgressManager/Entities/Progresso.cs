@@ -3,9 +3,9 @@
     internal class Progresso
     {
         public double DiferencaPeso { get; set; }
-        public double DiferancaCintura { get; set; }
+        public double DiferencaCintura { get; set; }
         public double DiferencaQuadril { get; set; }
-        public double DiferancaBiceps { get; set; }
+        public double DiferencaBiceps { get; set; }
         public double DiferencaCoxa { get; set; }
         public double DiferencaPanturrilha { get; set; }
 
@@ -15,11 +15,27 @@
             double diferancaBiceps, double diferencaCoxa, double diferencaPanturrilha)
         {
             DiferencaPeso = diferencaPeso;
-            DiferancaCintura = diferancaCintura;
+            DiferencaCintura = diferancaCintura;
             DiferencaQuadril = diferencaQuadril;
-            DiferancaBiceps = diferancaBiceps;
+            DiferencaBiceps = diferancaBiceps;
             DiferencaCoxa = diferencaCoxa;
             DiferencaPanturrilha = diferencaPanturrilha;
         }
+        public override string ToString()
+        {
+            return "Peso: "
+                + DiferencaPeso
+                + "\nCintura: "
+                + DiferencaCintura
+                + "\nQuadril: "
+                + DiferencaQuadril
+                + "\nBicpes: "
+                + DiferencaBiceps
+                + "\nCoxa: "
+                + DiferencaCoxa
+                + "\nPanturrilha: "
+                + DiferencaPanturrilha;
+        }
     }
+
 }

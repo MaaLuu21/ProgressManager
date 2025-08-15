@@ -17,7 +17,6 @@ namespace ProgressManager.Services
             var primeira = medicoes.OrderBy(m => m.DataDeRegistro).First();
             var ultima = medicoes.OrderBy(m => m.DataDeRegistro).Last();
 
-
             return new Progresso(
                 ultima.Peso - primeira.Peso, ultima.Cintura - primeira.Cintura, 
                 ultima.Quadril - primeira.Quadril, ultima.Biceps - primeira.Biceps,

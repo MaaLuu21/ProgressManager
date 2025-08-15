@@ -26,8 +26,16 @@ namespace ProgressManager.View
                 Console.WriteLine("Insira o ID com no máximo 6 digitos ex: 154985, ele será seu LOGIN");
                 int id = EntradaUtils.LerEntrada(
                     "ID(LOGIN): ", entrada => (int.TryParse(entrada, out var valor), valor));
-                usuarios.Add(new Usuario(nome, dataDeNascimento, altura, id));
-                UsuarioRepository.Salvar(usuarios);
+                if (!usuarios.Any(u => u.Id == id))
+                {
+                    usuarios.Add(new Usuario(nome, dataDeNascimento, altura, id));
+                    UsuarioRepository.Salvar(usuarios);
+                }
+                else
+                {
+                    Console.WriteLine("Já existe uma pessoa com esse ID! Tente novamente");
+                    return;
+                }
             }
             catch (DomainException e)
             {
