@@ -81,7 +81,6 @@ namespace ProgressManager.Repositories
             {
                 throw new DomainException($"ID: {id} não encontrado!");
             }
-
         }
     }
 }

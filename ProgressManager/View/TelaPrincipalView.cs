@@ -34,79 +34,56 @@ namespace ProgressManager.View
 
                 if (!parseOk)
                 {
-                    Console.WriteLine("Opção inválida! Pressione qualquer tecla para tentar novamente...");
-                    Console.ReadKey();
+                    
+                    
                     continue; // volta para o início do while
                 }
-
-                switch (opcoes)
+                try
                 {
-                    case OpcoesMenuPrincipal.InserirMedidas:
-                        Console.Clear();
-                        try
-                        {
-                            DateTime dataDeRegistro = EntradaUtils.LerEntrada(
-                                "Data de hoje: ", entrada => (DateTime.TryParse(entrada, out var valor), valor));
-                            double peso = EntradaUtils.LerEntrada(
-                                "Peso: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double cintura = EntradaUtils.LerEntrada(
-                                "Cintura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double quadril = EntradaUtils.LerEntrada(
-                                "Quadril: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double biceps = EntradaUtils.LerEntrada(
-                                "Bíceps: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double coxa = EntradaUtils.LerEntrada(
-                                "Coxa: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double panturrilha = EntradaUtils.LerEntrada(
-                                "Panturrilha: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            var medicao = new Medicao(dataDeRegistro, peso, cintura, quadril, biceps, coxa, panturrilha);
+                    switch (opcoes)
+                    {
+                        case OpcoesMenuPrincipal.InserirMedidas:
+                            Console.Clear();
+                            var medicao = LerMedicaoView.LerMedicao();
+
                             usuarioLogado.Medicoes.Add(medicao);
                             UsuarioRepository.AtualizarUsuario(usuarioLogado.Id, usuarioLogado);
-                        }
-                        catch (DomainException e)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("ERROR: " + e.Message);
-                            Thread.Sleep(5000);
-                            break;
-                        }
-                        break;
 
-                    case OpcoesMenuPrincipal.CalcularIMC:
-                        Console.Clear();
-                        var ultimaMedicao = usuarioLogado.Medicoes.LastOrDefault();
-                        if (ultimaMedicao != null)
-                        {
-                            double imc = ImcService.Imc(ultimaMedicao.Peso, usuarioLogado.Altura);
-                            Console.WriteLine($"IMC: " + imc.ToString("F2", CultureInfo.InvariantCulture));
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nenhuma medição registrada para calcular o IMC!!");
+                            break;
+
+                        case OpcoesMenuPrincipal.CalcularIMC:
+                            Console.Clear();
+                            var ultimaMedicao = usuarioLogado.Medicoes.LastOrDefault();
+                            if (ultimaMedicao != null)
+                            {
+                                double imc = ImcService.Imc(ultimaMedicao.Peso, usuarioLogado.Altura);
+                                Console.WriteLine($"IMC: " + imc.ToString("F2", CultureInfo.InvariantCulture));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nenhuma medição registrada para calcular o IMC!!");
+                                Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                                Console.ReadKey();
+                                break;
+                            }
                             Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
                             Console.ReadKey();
                             break;
-                        }
-                        Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
-                        Console.ReadKey();
-                        break;
 
-                    case OpcoesMenuPrincipal.Progresso:
-                        Console.Clear();
-                        CalcularProgressoService service = new CalcularProgressoService();
-                        
-                        if (medicoes != null)
-                        {
-                            Progresso progresso = service.CalcularProgresso(medicoes);
-                            Console.WriteLine(progresso);
-                        }
-                        Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
-                        Console.ReadKey();
-                        break;
+                        case OpcoesMenuPrincipal.Progresso:
+                            Console.Clear();
+                            CalcularProgressoService service = new CalcularProgressoService();
 
-                    case OpcoesMenuPrincipal.ModificarMedida:
-                        try
-                        {
+                            if (medicoes != null && medicoes.Count > 0)
+                            {
+                                Progresso progresso = service.CalcularProgresso(medicoes);
+                                Console.WriteLine(progresso);
+                            }
+                            Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                            Console.ReadKey();
+                            break;
+
+                        case OpcoesMenuPrincipal.ModificarMedida:
                             if (medicoes == null || medicoes.Count == 0)
                             {
                                 Console.WriteLine("Nenhuma medição registrada ainda!!");
@@ -114,41 +91,29 @@ namespace ProgressManager.View
                                 Console.ReadKey();
                                 break;
                             }
-                            DateTime dataAlterada = EntradaUtils.LerEntrada(
-                                "Data da medição que deseja alterar: ", entrada => (DateTime.TryParse(entrada, out var valor), valor));
-                            double peso = EntradaUtils.LerEntrada(
-                                "Peso: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double cintura = EntradaUtils.LerEntrada(
-                                "Cintura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double quadril = EntradaUtils.LerEntrada(
-                                "Quadril: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double biceps = EntradaUtils.LerEntrada(
-                                "Bíceps: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double coxa = EntradaUtils.LerEntrada(
-                                "Coxa: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
-                            double panturrilha = EntradaUtils.LerEntrada(
-                                "Panturrilha: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                            DateTime dataEscolhida = EntradaUtils.LerEntrada(
+                                "Digite a data da medição que deseja modificar:",
+                                entrada => (DateTime.TryParse(entrada, out var valor), valor));
 
-                            var medicaoAtualizada = new Medicao(dataAlterada, peso, cintura, quadril, biceps, coxa, panturrilha);
-                            usuarioLogado.Medicoes.Add(medicaoAtualizada);
-                            MedicaoRepository.AtualizarMedicao(dataAlterada, medicaoAtualizada, usuarioLogado.Id);
-                            
-                        }
-                        catch (DomainException e)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("ERROR: " + e.Message);
-                            Thread.Sleep(5000);
+                            var medicaoAtualizada = LerMedicaoView.LerMedicao();
+                            MedicaoRepository.AtualizarMedicao(medicaoAtualizada.DataDeRegistro, medicaoAtualizada, usuarioLogado.Id);
+
                             break;
-                        }
-                        break;
 
-                    case OpcoesMenuPrincipal.Sair:
-                        return;
+                        case OpcoesMenuPrincipal.Sair:
+                            return;
 
-                    default:
-                        Console.WriteLine("Opção inválida");
-                        break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Opção inválida! Pressione qualquer tecla para tentar novamente...");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+                catch (DomainException e)
+                {
+                    ConsoleUtils.MostrarErro(e.Message);
+                    continue;
                 }
             }
         }

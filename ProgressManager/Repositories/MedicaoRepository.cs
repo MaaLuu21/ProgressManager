@@ -38,7 +38,7 @@ namespace ProgressManager.Repositories
                 throw new DomainException($"ID: {id} não encontrado!");
             }
 
-            var medicao = usuario.Medicoes.Find(m => m.DataDeRegistro == data);
+            var medicao = usuario.Medicoes.Find(m => m.DataDeRegistro.Date == data.Date);
 
             if (medicao != null)
             {
