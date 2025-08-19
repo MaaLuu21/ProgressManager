@@ -11,7 +11,8 @@ namespace ProgressManager.View
             {
                 Console.WriteLine(" _________________________");
                 Console.WriteLine("|Login    -  [0]          |");
-                Console.WriteLine("|Cadastro - [1]           |");
+                Console.WriteLine("|Cadastro -  [1]          |");
+                Console.WriteLine("|Encerrar -  [2]          |");
                 Console.WriteLine(" -------------------------");
                 string entrada = Console.ReadLine();
                 bool parseOk = Enum.TryParse<OpcoesMenuInicial>(entrada, out OpcoesMenuInicial opcoes);
@@ -24,10 +25,14 @@ namespace ProgressManager.View
                         {
                             return usuarioLogado;
                         }
-                        
                         break;
+
                     case OpcoesMenuInicial.Cadastro:
                         CadastroView.Cadastro();
+                        break;
+
+                    case OpcoesMenuInicial.Encerrar:
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Opção inválida");

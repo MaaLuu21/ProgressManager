@@ -46,7 +46,7 @@ namespace ProgressManager.Repositories
             return new List<Usuario>();
         }
         
-        public static void RemoveUsuario(int id)
+        public static bool RemoveUsuario(int id)
         {
             var usuarios = Carregar();
             var usuario = usuarios.Find(u => u.Id == id);
@@ -55,14 +55,14 @@ namespace ProgressManager.Repositories
             {
                 usuarios.Remove(usuario);
                 Salvar(usuarios);
-                Console.WriteLine($"Usuario {usuario.Nome} removido com sucesso!");
+                return true;
             }
             else
             {
-                throw new DomainException($"Usuario: {usuario.Nome}, ID: {usuario.Id} não encontrado!");
+                return false;
             }
         }
-        public static void AtualizarUsuario (int id, Usuario novosDados)
+        public static bool AtualizarUsuario (int id, Usuario novosDados)
         {
             var usuarios = Carregar();
             var usuario = usuarios.Find (u => u.Id == id);
@@ -75,11 +75,11 @@ namespace ProgressManager.Repositories
                 usuario.Medicoes = novosDados.Medicoes;
 
                 Salvar(usuarios);
-                Console.WriteLine($"Usuario {usuario.Nome} atualizado com sucesso!");
+                return true;
             }
             else
             {
-                throw new DomainException($"ID: {id} não encontrado!");
+                return false;
             }
         }
     }

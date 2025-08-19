@@ -1,6 +1,6 @@
 ﻿using ProgressManager.Exceptions;
 
-namespace ProgressManager.View
+namespace ProgressManager.View.Utils
 {
     class EntradaUtils // --- editar no diagrama de classes
     {

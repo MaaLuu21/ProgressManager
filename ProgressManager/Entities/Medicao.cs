@@ -26,8 +26,9 @@
         public override string ToString()
         {
             return "___________________________________________"
-                + "Data de Resgitro: "
+                + "\n Data de Resgitro: "
                 + DataDeRegistro.ToString("dd/MM/yyyy")
+                + "\n___________________________________________"
                 + "\nPeso: "
                 + Peso
                 + "\nCintura: "

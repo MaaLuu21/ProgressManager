@@ -7,56 +7,59 @@ namespace ProgressManager
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
-            List<Usuario> usuarios = UsuarioRepository.Carregar();
+
             try
             {
-                
-               if (usuarios.Count == 0)
+                while (true)
                 {
-                    Console.WriteLine("Nenhuma pessoas foi cadastrada ainda");
-                }
-                else
-                {
-                    foreach (Usuario u in usuarios)
+                    List<Usuario> usuarios = UsuarioRepository.Carregar();
+                    if (usuarios.Count == 0)
                     {
-                        Console.WriteLine("___________________________________________");
-                        Console.WriteLine("Nome: "
-                            + u.Nome
-                            + "\nData: "
-                            + u.DataDeNascimento
-                            + "\nAltura:"
-                            + u.Altura
-                            + "\nID: "
-                            + u.Id);
+                        Console.WriteLine("Nenhuma pessoas foi cadastrada ainda");
+                    }
+                    else
+                    {
+                        foreach (Usuario u in usuarios)
+                        {
+                            Console.WriteLine("___________________________________________");
+                            Console.WriteLine("Nome: "
+                                + u.Nome
+                                + "\nData: "
+                                + u.DataDeNascimento
+                                + "\nAltura:"
+                                + u.Altura
+                                + "\nID: "
+                                + u.Id);
 
-                        if (u.Medicoes.Count > 0)
-                        {
-                            Console.WriteLine("Medicoes:");
-                            foreach (var m in u.Medicoes)
+                            if (u.Medicoes.Count > 0)
                             {
-                                Console.WriteLine(m); // chama ToString() de Medicao
+                                Console.WriteLine("Medicoes:");
+                                foreach (var m in u.Medicoes)
+                                {
+                                    Console.WriteLine(m);
+                                    Console.WriteLine("\t");// chama ToString() de Medicao
+                                }
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nenhuma medição registrada.");
+                            
+                            else
+                            {
+                                Console.WriteLine("Nenhuma medição registrada.");
+                            }
+                            Console.WriteLine("\t");
                         }
                     }
+                    Usuario usuario = TelaInicialView.TelaInicial();
+                    TelaPrincipalView telaPrincipal = new TelaPrincipalView();
+                    if (usuario != null)
+                    {
+                        telaPrincipal.TelaInicial(usuario);
+                    }
                 }
-               
-
-                Usuario usuario = TelaInicialView.TelaInicial();
-                TelaPrincipalView telaPrincipal = new TelaPrincipalView();
-                if (usuario != null)
-                {
-                    telaPrincipal.TelaInicial(usuario);
-                }
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Erro inesperado: " + e.Message);
             }

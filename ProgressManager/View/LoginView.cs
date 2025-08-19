@@ -1,5 +1,6 @@
 ﻿using ProgressManager.Entities;
 using ProgressManager.Repositories;
+using ProgressManager.View.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace ProgressManager.View
             {
                 Console.Clear();
                 Console.WriteLine($"Bem-vindo(a) {usuario.Nome}!!");
-                Thread.Sleep(500);
+                Thread.Sleep(1500);
                 return usuario;
             }
             else

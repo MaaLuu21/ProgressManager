@@ -1,4 +1,5 @@
 ﻿using ProgressManager.Entities;
+using ProgressManager.View.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
