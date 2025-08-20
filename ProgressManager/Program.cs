@@ -16,7 +16,7 @@ namespace ProgressManager
                 while (true)
                 {
                     List<Usuario> usuarios = UsuarioRepository.Carregar();
-                    if (usuarios.Count == 0)
+                   /* if (usuarios.Count == 0)
                     {
                         Console.WriteLine("Nenhuma pessoas foi cadastrada ainda");
                     }
@@ -39,18 +39,16 @@ namespace ProgressManager
                                 Console.WriteLine("Medicoes:");
                                 foreach (var m in u.Medicoes)
                                 {
-                                    Console.WriteLine(m);
-                                    Console.WriteLine("\t");// chama ToString() de Medicao
+                                    Console.WriteLine(m);// chama ToString() de Medicao
                                 }
-                            }
-                            
+                            } 
                             else
                             {
                                 Console.WriteLine("Nenhuma medição registrada.");
                             }
-                            Console.WriteLine("\t");
                         }
                     }
+                   */
                     Usuario usuario = TelaInicialView.TelaInicial();
                     TelaPrincipalView telaPrincipal = new TelaPrincipalView();
                     if (usuario != null)

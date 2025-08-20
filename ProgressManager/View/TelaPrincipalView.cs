@@ -12,7 +12,10 @@ namespace ProgressManager.View
     {
         public void TelaInicial(Usuario usuarioLogado)
         {
+            OpcoesMenuPrincipal opcoes;
+            bool parseOk = false;
             List<Medicao> medicoes = usuarioLogado.Medicoes;
+
             while (true)
             {
                 Console.Clear();
@@ -25,12 +28,24 @@ namespace ProgressManager.View
                 Console.WriteLine("| MODIFICAR MEDIDA   - [3]             |");
                 Console.WriteLine("| MODIFICAR USUÁRIO  - [4]             |");
                 Console.WriteLine("| REMOVER MEDIDA     - [5]             |");
-                Console.WriteLine("| REMOVER USUARIO    - [6]             |");//
+                Console.WriteLine("| REMOVER USUARIO    - [6]             |");
                 Console.WriteLine("| SAIR               - [7]             |");
                 Console.WriteLine(" --------------------------------------");
-                string entrada = Console.ReadLine();
+                string entrada = Console.ReadLine()?.Trim();
 
-                bool parseOk = Enum.TryParse<OpcoesMenuPrincipal>(entrada, out OpcoesMenuPrincipal opcoes);// arrumar pra não aceitar espaço em branco como 0
+                parseOk = Enum.TryParse(entrada, out opcoes) &&
+                          Enum.IsDefined(typeof(OpcoesMenuPrincipal), opcoes);
+
+                if (string.IsNullOrEmpty(entrada))
+                {
+                    ConsoleUtils.MostrarErro("Opção inválida! Digite apenas os números do menu.");
+                    continue;
+                }
+
+                if (!parseOk)
+                {
+                    ConsoleUtils.MostrarErro("Opção inválida! Digite apenas os números do menu.");
+                }
 
                 try
                 {
@@ -56,11 +71,11 @@ namespace ProgressManager.View
                             else
                             {
                                 Console.WriteLine("Nenhuma medição registrada para calcular o IMC!!");
-                                Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                                Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
                                 Console.ReadKey();
                                 break;
                             }
-                            Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                            Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
                             Console.ReadKey();
                             break;
 
@@ -68,12 +83,12 @@ namespace ProgressManager.View
                             Console.Clear();
                             CalcularProgressoService service = new CalcularProgressoService();
 
-                            if (medicoes != null && medicoes.Count > 0)
+                            if (usuarioLogado.Medicoes != null && usuarioLogado.Medicoes.Count > 0)
                             {
-                                Progresso progresso = service.CalcularProgresso(medicoes);
+                                Progresso progresso = service.CalcularProgresso(usuarioLogado.Medicoes);
                                 Console.WriteLine(progresso);
                             }
-                            Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                            Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
                             Console.ReadKey();
                             break;
 
@@ -82,7 +97,7 @@ namespace ProgressManager.View
                             if (medicoes == null || medicoes.Count == 0)
                             {
                                 Console.WriteLine("Nenhuma medição registrada ainda!!");
-                                Console.WriteLine("Aperte alguma tecla do teclado para voltar ao menu!!");
+                                Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
                                 Console.ReadKey();
                                 break;
                             }
@@ -112,15 +127,23 @@ namespace ProgressManager.View
 
                             break;
 
-                        case OpcoesMenuPrincipal.RemoverMedida:
+                        case OpcoesMenuPrincipal.RemoverMedida:// arrumar para só remover q2uando tiver medida
                             Console.Clear();
-                            DateTime dataRemovida = EntradaUtils.LerEntrada(
+                            if (medicoes == null || medicoes.Count > 0)
+                            {
+                                DateTime dataRemovida = EntradaUtils.LerEntrada(
                                     "Digite a data da medição que deseja remover:",
                                     entrada => (DateTime.TryParse(entrada, out var valor), valor));
 
-                            ConsoleUtils.MostrarSucesso(MedicaoService.RemoverMedicao(dataRemovida, usuarioLogado.Id));
+                                ConsoleUtils.MostrarSucesso(MedicaoService.RemoverMedicao(dataRemovida, usuarioLogado.Id));
+                                usuarioLogado.Medicoes.RemoveAll(m => m.DataDeRegistro.Date == dataRemovida.Date);
+                            }
+                            else
+                            {
+                                ConsoleUtils.MostrarErro("Nenhuma medição registrada para remover!");
 
-                            break;
+                            }
+                                break;
 
                         case OpcoesMenuPrincipal.RemoverUsuario:
                             Console.Clear();
@@ -144,15 +167,11 @@ namespace ProgressManager.View
 
                             break;
 
-
                         case OpcoesMenuPrincipal.Sair:
                             Console.Clear();
                             return;
 
                         default:
-                            Console.Clear();
-                            Console.WriteLine("Opção inválida! Pressione qualquer tecla para tentar novamente...");
-                            Console.ReadKey();
                             break;
                     }
                 }

@@ -12,10 +12,11 @@ namespace ProgressManager.Repositories
 
             var medicao = usuario.Medicoes.Find(m => m.DataDeRegistro.Date == data.Date);
 
-            if (medicao != null)
+            if (medicao != null || usuario.Medicoes.Count > 0)
             {
                 usuario.Medicoes.Remove(medicao);
                 UsuarioRepository.Salvar(usuarios);
+
                 return true;
             }
             else

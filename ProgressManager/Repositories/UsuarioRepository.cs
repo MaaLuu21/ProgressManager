@@ -6,7 +6,7 @@ namespace ProgressManager.Repositories
 {
     class UsuarioRepository
     {
-        private static string caminhoArquivo = "usuario.json";
+        private static string _caminhoArquivo = "usuario.json";
 
         public static void Salvar(List <Usuario> usuario)
         {
@@ -14,7 +14,7 @@ namespace ProgressManager.Repositories
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string json = JsonSerializer.Serialize(usuario, options);
-                File.WriteAllText(caminhoArquivo, json);
+                File.WriteAllText(_caminhoArquivo, json);
             }
             catch (IOException e)
             {
@@ -32,9 +32,9 @@ namespace ProgressManager.Repositories
 
         public static List<Usuario> Carregar()
         {
-            if (File.Exists(caminhoArquivo))
+            if (File.Exists(_caminhoArquivo))
             {
-                string json = File.ReadAllText(caminhoArquivo);
+                string json = File.ReadAllText(_caminhoArquivo);
                 var usuarios = JsonSerializer.Deserialize<List<Usuario>>(json) ?? new List<Usuario>();
 
                 var usuariosOrdenados = usuarios.OrderByDescending(u => u.Medicoes != null && u.Medicoes.Any()

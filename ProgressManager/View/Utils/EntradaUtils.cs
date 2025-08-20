@@ -7,7 +7,7 @@ namespace ProgressManager.View.Utils
         public static T LerEntrada<T> (string mensagem,Func<string, (bool valido, T valor)> parser)
         {
             Console.Write(mensagem);
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine()?.Trim();
 
             var (valido, valor) = parser(entrada);
 
