@@ -31,6 +31,7 @@ namespace ProgressManager.View
                 Console.WriteLine("| REMOVER USUARIO    - [6]             |");
                 Console.WriteLine("| SAIR               - [7]             |");
                 Console.WriteLine(" --------------------------------------");
+                Console.Write(":");
                 string entrada = Console.ReadLine()?.Trim();
 
                 parseOk = Enum.TryParse(entrada, out opcoes) &&
@@ -67,12 +68,11 @@ namespace ProgressManager.View
                             {
                                 double imc = ImcService.Imc(ultimaMedicao.Peso, usuarioLogado.Altura);
                                 Console.WriteLine($"IMC: " + imc.ToString("F2", CultureInfo.InvariantCulture));
+                                Console.WriteLine( ImcService.ImcIndice(ultimaMedicao.Peso, usuarioLogado.Altura));
                             }
                             else
                             {
-                                Console.WriteLine("Nenhuma medição registrada para calcular o IMC!!");
-                                Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
-                                Console.ReadKey();
+                                ConsoleUtils.MostrarErro("Nenhuma medição registrada para calcular o IMC!!");
                                 break;
                             }
                             Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
@@ -88,17 +88,19 @@ namespace ProgressManager.View
                                 Progresso progresso = service.CalcularProgresso(usuarioLogado.Medicoes);
                                 Console.WriteLine(progresso);
                             }
-                            Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
-                            Console.ReadKey();
+                            else
+                            {
+                                ConsoleUtils.MostrarErro("Nenhuma medição registrada!");
+
+                            }
+
                             break;
 
                         case OpcoesMenuPrincipal.ModificarMedida:
                             Console.Clear();
                             if (medicoes == null || medicoes.Count == 0)
                             {
-                                Console.WriteLine("Nenhuma medição registrada ainda!!");
-                                Console.WriteLine("Aperte alguma tecla para voltar ao menu!!");
-                                Console.ReadKey();
+                                ConsoleUtils.MostrarErro("Nenhuma medição registrada ainda!!");
                                 break;
                             }
                             DateTime dataModificada = EntradaUtils.LerEntrada(

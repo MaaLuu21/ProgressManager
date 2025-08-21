@@ -1,11 +1,6 @@
 ﻿using ProgressManager.Entities;
 using ProgressManager.View.Utils;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProgressManager.View
 {
@@ -16,17 +11,17 @@ namespace ProgressManager.View
             DateTime dataRegistro = EntradaUtils.LerEntrada(
                  "Data da medição: ", entrada => (DateTime.TryParse(entrada, out var valor), valor));
             double peso = EntradaUtils.LerEntrada(
-                 "Peso: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                 "Peso: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
             double cintura = EntradaUtils.LerEntrada(
-                "Cintura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                "Cintura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
             double quadril = EntradaUtils.LerEntrada(
-                "Quadril: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                "Quadril: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
             double biceps = EntradaUtils.LerEntrada(
-                "Bíceps: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                "Bíceps: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
             double coxa = EntradaUtils.LerEntrada(
-                "Coxa: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                "Coxa: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
             double panturrilha = EntradaUtils.LerEntrada(
-                "Panturrilha: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
+                "Panturrilha: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor) && valor > 0, valor));
 
             return new Medicao(dataRegistro, peso, cintura, quadril, biceps, coxa, panturrilha);
         }

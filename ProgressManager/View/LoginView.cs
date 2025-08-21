@@ -1,11 +1,6 @@
 ﻿using ProgressManager.Entities;
 using ProgressManager.Repositories;
 using ProgressManager.View.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProgressManager.View
 {
@@ -13,6 +8,7 @@ namespace ProgressManager.View
     {
         public static Usuario Login()
         {
+            Console.Clear();
             var usuarios = UsuarioRepository.Carregar();
             int id = EntradaUtils.LerEntrada(
                 "ID: ", entrada => (int.TryParse(entrada, out var valor), valor));
@@ -23,7 +19,7 @@ namespace ProgressManager.View
             {
                 Console.Clear();
                 Console.WriteLine($"Bem-vindo(a) {usuario.Nome}!!");
-                Thread.Sleep(1500);
+                Thread.Sleep(1800);
                 return usuario;
             }
             else

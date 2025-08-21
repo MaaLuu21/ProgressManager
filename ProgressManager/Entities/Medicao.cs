@@ -2,7 +2,7 @@
 {
     class Medicao
     {
-        public DateTime DataDeRegistro { get; set; }
+        public DateTime DataDeRegistro { get;  set; }
         public double Peso { get; set; }
         public double Cintura { get; set; }
         public double Quadril { get; set; }

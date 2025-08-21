@@ -1,5 +1,6 @@
 ﻿using ProgressManager.Entities.Enums;
 using ProgressManager.Entities;
+using ProgressManager.View.Utils;
 
 namespace ProgressManager.View
 {
@@ -35,7 +36,8 @@ namespace ProgressManager.View
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Opção inválida");
+                        Console.Clear();
+                        ConsoleUtils.MostrarErro("Opção inválida");
                         break;
                 }
             }
