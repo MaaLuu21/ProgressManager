@@ -26,16 +26,26 @@ O projeto tem como objetivo aplicar conceitos de Programação Orientada a Objet
 **Menu Interativo**
 - Interface de linha de comando simples e intuitiva.
 
-## 🎬 Demonstração
+### Cadastro
+![Cadastro](assets/CADASTRO.gif)
 
-| Cadastro | Login | Inserir Medições |
-|----------|-------|----------------|
-| ![Cadastro](assets/CADASTRO.gif) | ![Login](assets/LOGIN.gif) | ![Inserir Medições](assets/INSERIR-MEDICOES.gif) |
+### Login
+![Login](assets/LOGIN.gif)
 
-| Calcular IMC | Modificar Medida | Modificar Usuário |
-|--------------|-----------------|-----------------|
-| ![Calcular IMC](assets/CALCULA-IMC.gif) | ![Modificar Medida](assets/MODIFICAR-MEDIDA.gif) | ![Modificar Usuario](assets/MODIFICAR-USUARIO.gif) |
+### Inserir Medições
+![Inserir Medições](assets/INSERIR-MEDICOES.gif)
 
-| Remover Medida | Remover Usuário |
-|----------------|----------------|
-| ![Remover Medida](assets/REMOVER-MEDIDA.gif) | ![Remover usuário](assets/REMOVER-USUARIO.gif) |
+### Calcular IMC
+![Calcular IMC](assets/CALCULA-IMC.gif)
+
+### Modificar Medida
+![Modificar Medida](assets/MODIFICAR-MEDIDA.gif)
+
+### Modificar Usuário
+![Modificar Usuario](assets/MODIFICAR-USUARIO.gif)
+
+### Remover Medida
+![Remover Medida](assets/REMOVER-MEDIDA.gif)
+
+### Remover Usuário
+![Remover usuário](assets/REMOVER-USUARIO.gif)

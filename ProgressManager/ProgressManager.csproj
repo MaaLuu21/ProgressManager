@@ -12,4 +12,8 @@
     <PackageReference Include="Figgle.Fonts" Version="0.6.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="assets\" />
+  </ItemGroup>
+
 </Project>
