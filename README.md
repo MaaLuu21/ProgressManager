@@ -1,4 +1,4 @@
-# ProgressManager
+# **ProgressManager**
 
 O Progress Manager é uma aplicação console em C# desenvolvida para o acompanhamento de e progresso físico.
 O projeto tem como objetivo aplicar conceitos de Programação Orientada a Objetos e boas práticas de arquitetura, fornecendo um sistema simples para gerenciar usuários, registrar medições e acompanhar a evolução ao longo do tempo.
@@ -15,15 +15,15 @@ O projeto tem como objetivo aplicar conceitos de Programação Orientada a Objet
 
 ## 🚀 Funcionalidades
 
-**Gerenciamento de usuários**
+## **Gerenciamento de usuários**
 - Criar, remover, atualizar e listar usuários.
-**Controle de Medições**
+## **Controle de Medições**
 - Registrar, modificar, listar e excluir medições físicas.
-**Persistência em JSON**
+## **Persistência em JSON**
 - Todos os dados são salvos em arquivos .json, garantindo fácil portabilidade.
-**Arquitetura organizada**
+## **Arquitetura organizada**
 - Estruturado em camadas para manter o código limpo e desacoplado.
-**Menu Interativo**
+## **Menu Interativo**
 - Interface de linha de comando simples e intuitiva.
 
 ### Cadastro
