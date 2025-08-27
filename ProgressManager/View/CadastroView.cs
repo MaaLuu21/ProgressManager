@@ -10,6 +10,7 @@ namespace ProgressManager.View
     {
         public static void Cadastro()
         {
+            Console.Clear();
             List<Usuario> usuarios = UsuarioRepository.Carregar();
             try
             {
@@ -22,6 +23,12 @@ namespace ProgressManager.View
                 Console.WriteLine("Insira o ID com no máximo 6 digitos ex: 154985, ele será seu LOGIN");
                 int id = EntradaUtils.LerEntrada(
                     "ID(LOGIN): ", entrada => (int.TryParse(entrada, out var valor), valor));
+                if (id < 0 || id > 999999)
+                {
+                    ConsoleUtils.MostrarErro("ID inválido! Deve ter no máximo 6 dígitos.");
+                    return; 
+                }
+
                 if (!usuarios.Any(u => u.Id == id))
                 {
                     usuarios.Add(new Usuario(nome, dataDeNascimento, altura, id));
@@ -29,13 +36,12 @@ namespace ProgressManager.View
                 }
                 else
                 {
-                    Console.WriteLine("Já existe uma pessoa com esse ID! Tente novamente");
-                    return;
+                    ConsoleUtils.MostrarErro("Já existe uma pessoa com esse ID! Tente novamente");
                 }
             }
             catch (DomainException e)
             {
-                Console.WriteLine("ERROR: " + e.Message);
+                ConsoleUtils.MostrarErro(e.Message);
             }
         }
     }

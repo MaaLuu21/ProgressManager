@@ -10,6 +10,7 @@
         ModificarUsuario = 4,
         RemoverMedida = 5,
         RemoverUsuario = 6,
-        Sair = 7
+        MostrarMedicoes = 7,
+        Sair = 8
     }
 }

@@ -29,7 +29,8 @@ namespace ProgressManager.View
                 Console.WriteLine("| MODIFICAR USUÁRIO  - [4]             |");
                 Console.WriteLine("| REMOVER MEDIDA     - [5]             |");
                 Console.WriteLine("| REMOVER USUARIO    - [6]             |");
-                Console.WriteLine("| SAIR               - [7]             |");
+                Console.WriteLine("| MOSTRAR MEDICOES   - [7]             |");
+                Console.WriteLine("| SAIR               - [8]             |");
                 Console.WriteLine(" --------------------------------------");
                 Console.Write(":");
                 string entrada = Console.ReadLine()?.Trim();
@@ -46,6 +47,7 @@ namespace ProgressManager.View
                 if (!parseOk)
                 {
                     ConsoleUtils.MostrarErro("Opção inválida! Digite apenas os números do menu.");
+                    continue;
                 }
 
                 try
@@ -58,7 +60,6 @@ namespace ProgressManager.View
 
                             usuarioLogado.Medicoes.Add(medicao);
                             UsuarioRepository.AtualizarUsuario(usuarioLogado.Id, usuarioLogado);
-
                             break;
 
                         case OpcoesMenuPrincipal.CalcularIMC:
@@ -66,9 +67,7 @@ namespace ProgressManager.View
                             var ultimaMedicao = usuarioLogado.Medicoes.LastOrDefault();
                             if (ultimaMedicao != null)
                             {
-                                double imc = ImcService.Imc(ultimaMedicao.Peso, usuarioLogado.Altura);
-                                Console.WriteLine($"IMC: " + imc.ToString("F2", CultureInfo.InvariantCulture));
-                                Console.WriteLine( ImcService.ImcIndice(ultimaMedicao.Peso, usuarioLogado.Altura));
+                                MostrarImcView.MostrarImc(ultimaMedicao.Peso, usuarioLogado.Altura);
                             }
                             else
                             {
@@ -87,13 +86,14 @@ namespace ProgressManager.View
                             {
                                 Progresso progresso = service.CalcularProgresso(usuarioLogado.Medicoes);
                                 Console.WriteLine(progresso);
+
+                                Console.WriteLine("Aperte qualquer tecla para voltar ao menu.");
+                                Console.ReadKey();
                             }
                             else
                             {
                                 ConsoleUtils.MostrarErro("Nenhuma medição registrada!");
-
                             }
-
                             break;
 
                         case OpcoesMenuPrincipal.ModificarMedida:
@@ -103,13 +103,25 @@ namespace ProgressManager.View
                                 ConsoleUtils.MostrarErro("Nenhuma medição registrada ainda!!");
                                 break;
                             }
+
                             DateTime dataModificada = EntradaUtils.LerEntrada(
                                 "Digite a data da medição que deseja modificar:",
                                 entrada => (DateTime.TryParse(entrada, out var valor), valor));
+                            Console.Clear();
+                            int index = usuarioLogado.Medicoes.FindIndex(m => m.DataDeRegistro.Date == dataModificada.Date);
+                            if (index == -1)
+                            {
+                                ConsoleUtils.MostrarErro("Medição não encontrada!");
+                                break; 
+                            }
 
                             var medicaoAtualizada = LerMedicaoView.LerMedicao();
-                            ConsoleUtils.MostrarSucesso(MedicaoService.AtualizarMedicao(dataModificada, medicaoAtualizada, usuarioLogado.Id));
 
+                            string mensagem = MedicaoService.AtualizarMedicao(dataModificada, medicaoAtualizada, usuarioLogado.Id);
+
+                            usuarioLogado.Medicoes[index] = medicaoAtualizada;
+
+                            ConsoleUtils.MostrarSucesso(mensagem);
                             break;
 
                         case OpcoesMenuPrincipal.ModificarUsuario:
@@ -126,7 +138,6 @@ namespace ProgressManager.View
                             usuarioLogado.Altura = altura;
 
                             ConsoleUtils.MostrarSucesso(UsuarioService.AtualizarUsuario(usuarioLogado.Id, usuarioLogado));
-
                             break;
 
                         case OpcoesMenuPrincipal.RemoverMedida:// arrumar para só remover q2uando tiver medida
@@ -143,9 +154,8 @@ namespace ProgressManager.View
                             else
                             {
                                 ConsoleUtils.MostrarErro("Nenhuma medição registrada para remover!");
-
                             }
-                                break;
+                            break;
 
                         case OpcoesMenuPrincipal.RemoverUsuario:
                             Console.Clear();
@@ -166,6 +176,11 @@ namespace ProgressManager.View
                             {
                                 Console.WriteLine("Opção inválida! Digite [s] ou [n]");
                             }
+                            break;
+
+                        case OpcoesMenuPrincipal.MostrarMedicoes:
+                            Console.Clear();
+                            MedicoesView.MostrarMedicoes(usuarioLogado.Medicoes);
 
                             break;
 

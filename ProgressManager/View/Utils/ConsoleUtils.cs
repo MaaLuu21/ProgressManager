@@ -8,7 +8,7 @@
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("ERRO: " + mensagem);
             Console.ResetColor();
-            Console.WriteLine("Aperte qualquer tecla para voltar ao menu...");
+            Console.WriteLine("Aperte qualquer tecla para voltar...");
             Console.ReadKey();
         }
         public static void MostrarSucesso(string mensagem)

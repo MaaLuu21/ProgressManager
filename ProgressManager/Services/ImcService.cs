@@ -16,7 +16,6 @@
             if (imc > 29.9 && imc <= 30) return "Obesidade I!";
             if (imc > 30 && imc <= 39.9) return "Obesidade II!";
             return "Obesidade III!";
-
         }
     }
 }

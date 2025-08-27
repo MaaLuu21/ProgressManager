@@ -10,13 +10,30 @@ namespace ProgressManager.View
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine(" _________________________");
                 Console.WriteLine("|Login    -  [0]          |");
                 Console.WriteLine("|Cadastro -  [1]          |");
                 Console.WriteLine("|Encerrar -  [2]          |");
                 Console.WriteLine(" -------------------------");
-                string entrada = Console.ReadLine();
+                string entrada = Console.ReadLine()?.Trim();
                 bool parseOk = Enum.TryParse<OpcoesMenuInicial>(entrada, out OpcoesMenuInicial opcoes);
+
+
+                if (string.IsNullOrEmpty(entrada))
+                {
+                    ConsoleUtils.MostrarErro("Opção inválida! Digite apenas os números do menu.");
+                    continue;
+                }
+
+                parseOk = Enum.TryParse(entrada, out opcoes) &&
+                        Enum.IsDefined(typeof(OpcoesMenuInicial), opcoes);
+
+                if (!parseOk)
+                {
+                    ConsoleUtils.MostrarErro("Opção inválida! Digite apenas os números do menu.");
+                    continue;
+                }
 
                 switch (opcoes)
                 {
@@ -36,8 +53,6 @@ namespace ProgressManager.View
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.Clear();
-                        ConsoleUtils.MostrarErro("Opção inválida");
                         break;
                 }
             }
