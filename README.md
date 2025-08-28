@@ -29,40 +29,40 @@
 
 <h3 align="center">Cadastro</h3>
 <p align="center">
-  <img src="assets/CADASTRO.gif" alt="Cadastro" width="400"/>
+  <img src="assets/CADASTRO.gif" alt="Cadastro" width="550"/>
 </p>
 
 <h3 align="center">Login</h3>
 <p align="center">
-  <img src="assets/LOGIN.gif" alt="Login" width="400"/>
+  <img src="assets/LOGIN.gif" alt="Login" width="550"/>
 </p>
 
 <h3 align="center">Inserir Medições</h3>
 <p align="center">
-  <img src="assets/INSERIR-MEDICOES.gif" alt="Inserir Medições" width="400"/>
+  <img src="assets/INSERIR-MEDICOES.gif" alt="Inserir Medições" width="550"/>
 </p>
 
 <h3 align="center">Calcular IMC</h3>
 <p align="center">
-  <img src="assets/CALCULA-IMC.gif" alt="Calcular IMC" width="400"/>
+  <img src="assets/CALCULA-IMC.gif" alt="Calcular IMC" width="550"/>
 </p>
 
 <h3 align="center">Modificar Medida</h3>
 <p align="center">
-  <img src="assets/MODIFICAR-MEDIDA.gif" alt="Modificar Medida" width="400"/>
+  <img src="assets/MODIFICAR-MEDIDA.gif" alt="Modificar Medida" width="550"/>
 </p>
 
 <h3 align="center">Modificar Usuário</h3>
 <p align="center">
-  <img src="assets/MODIFICAR-USUARIO.gif" alt="Modificar Usuário" width="400"/>
+  <img src="assets/MODIFICAR-USUARIO.gif" alt="Modificar Usuário" width="550"/>
 </p>
 
 <h3 align="center">Remover Medida</h3>
 <p align="center">
-  <img src="assets/REMOVER-MEDIDA.gif" alt="Remover Medida" width="400"/>
+  <img src="assets/REMOVER-MEDIDA.gif" alt="Remover Medida" width="550"/>
 </p>
 
 <h3 align="center">Remover Usuário</h3>
 <p align="center">
-  <img src="assets/REMOVER-USUARIO.gif" alt="Remover Usuário" width="400"/>
+  <img src="assets/REMOVER-USUARIO.gif" alt="Remover Usuário" width="550"/>
 </p>
