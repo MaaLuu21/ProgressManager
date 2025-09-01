@@ -1,7 +1,6 @@
 ﻿using ProgressManager.Entities;
 using ProgressManager.Repositories;
 using ProgressManager.View;
-using System;
 
 namespace ProgressManager
 {
@@ -53,7 +52,7 @@ namespace ProgressManager
                     TelaPrincipalView telaPrincipal = new TelaPrincipalView();
                     if (usuario != null)
                     {
-                        telaPrincipal.TelaInicial(usuario);
+                        telaPrincipal.TelaPrincipal(usuario);
                     }
                 }
             }

@@ -5,7 +5,7 @@ namespace ProgressManager.Repositories
 {
     class MedicaoRepository
     {
-        public static bool RemoveMedicao(DateTime data, int id)// --- editar no diagrama de classe
+        public static bool RemoveMedicao(DateTime data, int id)
         {
             var usuarios = UsuarioRepository.Carregar();
             var usuario = usuarios.Find(u => u.Id == id);
@@ -24,7 +24,7 @@ namespace ProgressManager.Repositories
                 return false;
             }
         }
-        public static bool AtualizarMedicao(DateTime data, Medicao novosDados, int id)// --- editar no diagrama de classe Medicao novos dados e ID
+        public static bool AtualizarMedicao(DateTime data, Medicao novosDados, int id)
         {
             var usuarios = UsuarioRepository.Carregar();
             var usuario = usuarios.Find(u => u.Id == id);

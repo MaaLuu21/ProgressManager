@@ -4,6 +4,6 @@ namespace ProgressManager.Services
 {
     interface IProgressoService
     {
-        Progresso CalcularProgresso(List<Medicao> medicoes); // --- Editar diagrama de classe
+        Progresso CalcularProgresso(List<Medicao> medicoes);
     }
 }

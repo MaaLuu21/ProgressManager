@@ -8,9 +8,9 @@ using System.Globalization;
 
 namespace ProgressManager.View
 {
-    class TelaPrincipalView // --- editar diagrama de classes
+    class TelaPrincipalView
     {
-        public void TelaInicial(Usuario usuarioLogado)
+        public void TelaPrincipal(Usuario usuarioLogado)
         {
             OpcoesMenuPrincipal opcoes;
             bool parseOk = false;
@@ -112,7 +112,7 @@ namespace ProgressManager.View
                             if (index == -1)
                             {
                                 ConsoleUtils.MostrarErro("Medição não encontrada!");
-                                break; 
+                                break;
                             }
 
                             var medicaoAtualizada = LerMedicaoView.LerMedicao();
@@ -134,7 +134,7 @@ namespace ProgressManager.View
                             double altura = EntradaUtils.LerEntrada(
                                 "Altura: ", entrada => (double.TryParse(entrada, CultureInfo.InvariantCulture, out var valor), valor));
                             usuarioLogado.Nome = nome;
-                            usuarioLogado.DataDeNascimento = dataDeNascimento; 
+                            usuarioLogado.DataDeNascimento = dataDeNascimento;
                             usuarioLogado.Altura = altura;
 
                             ConsoleUtils.MostrarSucesso(UsuarioService.AtualizarUsuario(usuarioLogado.Id, usuarioLogado));

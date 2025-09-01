@@ -2,7 +2,7 @@
 
 namespace ProgressManager.View.Utils
 {
-    class EntradaUtils // --- editar no diagrama de classes
+    class EntradaUtils 
     {
         public static T LerEntrada<T> (string mensagem,Func<string, (bool valido, T valor)> parser)
         {

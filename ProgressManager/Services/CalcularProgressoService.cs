@@ -1,5 +1,4 @@
 ﻿using ProgressManager.Entities;
-using ProgressManager.Repositories;
 
 namespace ProgressManager.Services
 {
@@ -7,7 +6,7 @@ namespace ProgressManager.Services
     {
         public List<Medicao> Medicoes { get; set; }
 
-        public Progresso CalcularProgresso(List<Medicao> medicoes)// --- editar no diagrama de classe
+        public Progresso CalcularProgresso(List<Medicao> medicoes)
         {
             if(medicoes == null || medicoes.Count < 2)
             {
